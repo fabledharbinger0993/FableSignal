@@ -60,6 +60,18 @@ public final class StrobeController {
     private var targetDutyCycle: Double = 0.5
     private var targetIntensity: Float  = 0.6
 
+    // MARK: - Private — resync state
+
+    private var startMachTime: UInt64 = 0
+
+    // Mach-tick → nanosecond ratio, cached once. On iOS devices numer==denom==1
+    // (mach time is already in ns), but computed correctly for portability.
+    private let machToNs: Double = {
+        var info = mach_timebase_info_data_t()
+        mach_timebase_info(&info)
+        return Double(info.numer) / Double(info.denom)
+    }()
+
     // MARK: - Private — timer-queue-only
 
     private var strobeIsOn = false
@@ -92,8 +104,9 @@ public final class StrobeController {
     ///           `StrobeError.lockFailed` if the camera is in use by another process.
     public func start() throws {
         let d = try acquireDevice()
-        device    = d
-        isRunning = true
+        device        = d
+        isRunning     = true
+        startMachTime = mach_absolute_time()
         startTimer()
     }
 
@@ -113,19 +126,47 @@ public final class StrobeController {
         device = nil
     }
 
-    /// Phase 4 — resync the strobe timer to the audio engine's render clock.
+    /// Resync the strobe timer to the audio engine's render clock (Path C).
     ///
-    /// `hostTime` is the `mHostTime` value from an `AVAudioTime` at a known strobe
-    /// phase boundary. The implementation computes the drift between the audio clock's
-    /// current phase within the strobe period and the timer's phase, then nudges the
-    /// next scheduled deadline by that offset.
+    /// `hostTime` is `AVAudioNode.lastRenderTime.hostTime` — the mach absolute time of
+    /// the most recent audio render cycle, supplied by `SessionRunner` every ~5 s.
+    ///
+    /// Algorithm:
+    ///   1. Compute elapsed time since strobe start in audio-clock nanoseconds.
+    ///   2. Locate the current phase within the strobe period.
+    ///   3. Determine time remaining until the next phase transition.
+    ///   4. Reschedule the timer from now so it fires exactly at that transition,
+    ///      correcting any drift that accumulated between the two independent clocks.
     public func resync(toAudioHostTime hostTime: UInt64) {
-        // Phase 4 implementation placeholder.
-        // Steps:
-        // 1. Convert hostTime to seconds via mach_timebase_info.
-        // 2. Compute elapsed time since cycle start in audio-clock coordinates.
-        // 3. Compute offset = (elapsed % period) - timerPhaseElapsed.
-        // 4. Reschedule timer deadline by +offset (clamped to [-period/2, +period/2]).
+        guard isRunning, hostTime > 0, startMachTime > 0 else { return }
+
+        let hz        = max(min(targetHz, maxStrobeHz), 0.1)
+        let periodNs  = 1e9 / hz
+        let ratio     = machToNs
+
+        // Elapsed nanoseconds since strobe start, measured on the audio clock.
+        let elapsedMach = hostTime >= startMachTime ? hostTime - startMachTime : 0
+        let elapsedNs   = Double(elapsedMach) * ratio
+
+        // Phase within the current period [0, periodNs).
+        let phaseNs     = elapsedNs.truncatingRemainder(dividingBy: periodNs)
+        let dutyCycleNs = periodNs * targetDutyCycle
+
+        // Expected strobe state and nanoseconds until the next transition.
+        let expectedOn         = phaseNs < dutyCycleNs
+        let nsUntilTransition  = expectedOn
+            ? dutyCycleNs - phaseNs   // on → time until turn-off
+            : periodNs    - phaseNs   // off → time until turn-on
+
+        // Reschedule timer from now (audio hostTime ≈ now within one render buffer).
+        timer?.schedule(
+            deadline: .now() + .nanoseconds(max(Int(nsUntilTransition), 1_000)),
+            leeway: .microseconds(200)
+        )
+
+        // Bring the phase flag into agreement with the expected state.
+        let on = expectedOn
+        timerQueue.async { [weak self] in self?.strobeIsOn = on }
     }
 
     // MARK: - Private helpers

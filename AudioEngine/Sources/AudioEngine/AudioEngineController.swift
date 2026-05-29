@@ -59,6 +59,13 @@ public final class AudioEngineController {
 
     public var isRunning: Bool { engine.isRunning }
 
+    /// The `mHostTime` of the most recent audio render cycle.
+    /// Passed to `StrobeController.resync(toAudioHostTime:)` by `SessionRunner` (~5 s cadence)
+    /// to eliminate long-term drift between the strobe timer and the audio clock (Path C).
+    public var currentAudioHostTime: UInt64 {
+        engine.outputNode.lastRenderTime?.hostTime ?? 0
+    }
+
     // MARK: - Real-time parameter updates (session thread)
 
     /// Called by SessionRunner on every CurveEvaluator tick.
