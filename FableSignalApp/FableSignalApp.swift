@@ -20,6 +20,7 @@ private struct RootView: View {
             NavigationStack {
                 SessionListView()
             }
+            .preferredColorScheme(.dark)
         } else {
             SafetyGateView()
         }
