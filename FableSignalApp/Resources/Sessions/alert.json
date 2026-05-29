@@ -1,0 +1,47 @@
+{
+  "id": "alert-v1",
+  "title": "Alert & Wake",
+  "intent": "alert",
+  "durationSec": 900,
+  "safety": {
+    "maxStrobeHz": 40.0,
+    "requiresHeadphones": true,
+    "photosensitiveGateRequired": true
+  },
+  "segments": [
+    {
+      "startSec": 0,
+      "durationSec": 120,
+      "strobe": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "hz": 20, "dutyCycle": 0.5, "intensity": 0.5 },
+          { "tSec": 120, "hz": 40, "dutyCycle": 0.5, "intensity": 0.6 }
+        ]
+      },
+      "binaural": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "carrierHz": 250, "beatHz": 12, "gain": 0.75 },
+          { "tSec": 120, "carrierHz": 250, "beatHz": 18, "gain": 0.75 }
+        ]
+      }
+    },
+    {
+      "startSec": 120,
+      "durationSec": 780,
+      "strobe": {
+        "interpolation": "linear",
+        "keyframes": [
+          { "tSec": 0, "hz": 40, "dutyCycle": 0.5, "intensity": 0.6 }
+        ]
+      },
+      "binaural": {
+        "interpolation": "linear",
+        "keyframes": [
+          { "tSec": 0, "carrierHz": 250, "beatHz": 18, "gain": 0.75 }
+        ]
+      }
+    }
+  ]
+}

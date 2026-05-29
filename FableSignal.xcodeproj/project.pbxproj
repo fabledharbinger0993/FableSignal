@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA000000000000000000021A /* FableSignalApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000020A /* FableSignalApp.swift */; };
+		FA000000000000000000023A /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000022A /* AppState.swift */; };
+		FA000000000000000000025A /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000024A /* SessionStore.swift */; };
+		FA000000000000000000027A /* SafetyGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000026A /* SafetyGateView.swift */; };
+		FA000000000000000000029A /* SessionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000028A /* SessionListView.swift */; };
+		FA00000000000000000002BA /* SessionPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000002AA /* SessionPlayerView.swift */; };
+		FA00000000000000000002DA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA00000000000000000002CA /* SettingsView.swift */; };
+		FA000000000000000000032A /* relax.json in Resources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000031A /* relax.json */; };
+		FA000000000000000000034A /* alert.json in Resources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000033A /* alert.json */; };
+		FA000000000000000000036A /* sleep.json in Resources */ = {isa = PBXBuildFile; fileRef = FA000000000000000000035A /* sleep.json */; };
+		FA000000000000000000054A /* SessionKit in Frameworks */ = {isa = PBXBuildFile; productRef = FA000000000000000000052A /* SessionKit */; };
+		FA000000000000000000055A /* SessionRunner in Frameworks */ = {isa = PBXBuildFile; productRef = FA000000000000000000053A /* SessionRunner */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA000000000000000000020A /* FableSignalApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FableSignalApp.swift; sourceTree = "<group>"; };
+		FA000000000000000000022A /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		FA000000000000000000024A /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		FA000000000000000000026A /* SafetyGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyGateView.swift; sourceTree = "<group>"; };
+		FA000000000000000000028A /* SessionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionListView.swift; sourceTree = "<group>"; };
+		FA00000000000000000002AA /* SessionPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionPlayerView.swift; sourceTree = "<group>"; };
+		FA00000000000000000002CA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FA000000000000000000030A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA000000000000000000031A /* relax.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = relax.json; sourceTree = "<group>"; };
+		FA000000000000000000033A /* alert.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = alert.json; sourceTree = "<group>"; };
+		FA000000000000000000035A /* sleep.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sleep.json; sourceTree = "<group>"; };
+		FA000000000000000000040A /* FableSignal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FableSignal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA00000000000000000000EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000000000000000000054A /* SessionKit in Frameworks */,
+				FA000000000000000000055A /* SessionRunner in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA000000000000000000002A /* FableSignal */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000003A /* FableSignalApp */,
+				FA000000000000000000008A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA000000000000000000003A /* FableSignalApp */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000020A /* FableSignalApp.swift */,
+				FA000000000000000000030A /* Info.plist */,
+				FA000000000000000000005A /* Models */,
+				FA000000000000000000004A /* Views */,
+				FA000000000000000000006A /* Resources */,
+			);
+			path = FableSignalApp;
+			sourceTree = "<group>";
+		};
+		FA000000000000000000004A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000026A /* SafetyGateView.swift */,
+				FA000000000000000000028A /* SessionListView.swift */,
+				FA00000000000000000002AA /* SessionPlayerView.swift */,
+				FA00000000000000000002CA /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FA000000000000000000005A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000022A /* AppState.swift */,
+				FA000000000000000000024A /* SessionStore.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FA000000000000000000006A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000007A /* Sessions */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FA000000000000000000007A /* Sessions */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000031A /* relax.json */,
+				FA000000000000000000033A /* alert.json */,
+				FA000000000000000000035A /* sleep.json */,
+			);
+			path = Sessions;
+			sourceTree = "<group>";
+		};
+		FA000000000000000000008A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA000000000000000000040A /* FableSignal.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA00000000000000000000BA /* FableSignal */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA000000000000000000010A /* Build configuration list for PBXNativeTarget "FableSignal" */;
+			buildPhases = (
+				FA00000000000000000000CA /* Sources */,
+				FA00000000000000000000DA /* Resources */,
+				FA00000000000000000000EA /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FableSignal;
+			packageProductDependencies = (
+				FA000000000000000000052A /* SessionKit */,
+				FA000000000000000000053A /* SessionRunner */,
+			);
+			productName = FableSignal;
+			productReference = FA000000000000000000040A /* FableSignal.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA000000000000000000001A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					FA00000000000000000000BA = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = FA00000000000000000000FA /* Build configuration list for PBXProject "FableSignal" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA000000000000000000002A;
+			packageReferences = (
+				FA000000000000000000050A /* XCLocalSwiftPackageReference "SessionKit" */,
+				FA000000000000000000051A /* XCLocalSwiftPackageReference "SessionRunner" */,
+			);
+			productRefGroup = FA000000000000000000008A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA00000000000000000000BA /* FableSignal */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA00000000000000000000DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000000000000000000032A /* relax.json in Resources */,
+				FA000000000000000000034A /* alert.json in Resources */,
+				FA000000000000000000036A /* sleep.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA00000000000000000000CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000000000000000000021A /* FableSignalApp.swift in Sources */,
+				FA000000000000000000023A /* AppState.swift in Sources */,
+				FA000000000000000000025A /* SessionStore.swift in Sources */,
+				FA000000000000000000027A /* SafetyGateView.swift in Sources */,
+				FA000000000000000000029A /* SessionListView.swift in Sources */,
+				FA00000000000000000002BA /* SessionPlayerView.swift in Sources */,
+				FA00000000000000000002DA /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FA000000000000000000011A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA000000000000000000012A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA000000000000000000013A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "FableSignalApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = "1.0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fablesignal.app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FA000000000000000000014A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "FableSignalApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = "1.0";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fablesignal.app";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA00000000000000000000FA /* Build configuration list for PBXProject "FableSignal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA000000000000000000011A /* Debug */,
+				FA000000000000000000012A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA000000000000000000010A /* Build configuration list for PBXNativeTarget "FableSignal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA000000000000000000013A /* Debug */,
+				FA000000000000000000014A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		FA000000000000000000050A /* XCLocalSwiftPackageReference "SessionKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SessionKit;
+		};
+		FA000000000000000000051A /* XCLocalSwiftPackageReference "SessionRunner" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = SessionRunner;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FA000000000000000000052A /* SessionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA000000000000000000050A /* XCLocalSwiftPackageReference "SessionKit" */;
+			productName = SessionKit;
+		};
+		FA000000000000000000053A /* SessionRunner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA000000000000000000051A /* XCLocalSwiftPackageReference "SessionRunner" */;
+			productName = SessionRunner;
+		};
+/* End XCSwiftPackageProductDependency section */
+
+	};
+	rootObject = FA000000000000000000001A /* Project object */;
+}

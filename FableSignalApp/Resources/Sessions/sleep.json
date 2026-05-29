@@ -1,0 +1,67 @@
+{
+  "id": "sleep-v1",
+  "title": "Wind Down & Sleep",
+  "intent": "windDown",
+  "durationSec": 1800,
+  "safety": {
+    "maxStrobeHz": 12.0,
+    "requiresHeadphones": true,
+    "photosensitiveGateRequired": true
+  },
+  "segments": [
+    {
+      "startSec": 0,
+      "durationSec": 600,
+      "strobe": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "hz": 8, "dutyCycle": 0.5, "intensity": 0.55 },
+          { "tSec": 600, "hz": 5, "dutyCycle": 0.5, "intensity": 0.5  }
+        ]
+      },
+      "binaural": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "carrierHz": 200, "beatHz": 8, "gain": 0.7 },
+          { "tSec": 600, "carrierHz": 200, "beatHz": 5, "gain": 0.7 }
+        ]
+      }
+    },
+    {
+      "startSec": 600,
+      "durationSec": 600,
+      "strobe": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "hz": 5, "dutyCycle": 0.5, "intensity": 0.5  },
+          { "tSec": 600, "hz": 3, "dutyCycle": 0.5, "intensity": 0.45 }
+        ]
+      },
+      "binaural": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "carrierHz": 200, "beatHz": 5,   "gain": 0.7 },
+          { "tSec": 600, "carrierHz": 200, "beatHz": 3.0, "gain": 0.7 }
+        ]
+      }
+    },
+    {
+      "startSec": 1200,
+      "durationSec": 600,
+      "strobe": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "hz": 3, "dutyCycle": 0.5, "intensity": 0.45 },
+          { "tSec": 600, "hz": 3, "dutyCycle": 0.5, "intensity": 0.4  }
+        ]
+      },
+      "binaural": {
+        "interpolation": "easeInOut",
+        "keyframes": [
+          { "tSec": 0,   "carrierHz": 200, "beatHz": 3.0, "gain": 0.7  },
+          { "tSec": 600, "carrierHz": 200, "beatHz": 2.5, "gain": 0.65 }
+        ]
+      }
+    }
+  ]
+}

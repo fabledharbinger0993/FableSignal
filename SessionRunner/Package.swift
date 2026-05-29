@@ -26,7 +26,10 @@ let package = Package(
         ),
         .testTarget(
             name: "SessionRunnerTests",
-            dependencies: ["SessionRunner"]
+            dependencies: [
+                "SessionRunner",
+                .product(name: "SessionKit", package: "SessionKit"),
+            ]
         ),
     ]
 )
