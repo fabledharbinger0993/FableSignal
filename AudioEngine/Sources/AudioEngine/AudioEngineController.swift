@@ -24,10 +24,12 @@ public final class AudioEngineController {
     private let mainMixer    = AVAudioMixerNode()
     private let audioBedAsset: String?
 
-    // Populated in buildGraph(), which runs at start().
+    // Populated in buildGraph(), which runs on the first start() call only.
     private var synth: BinauralSynth?
     private var soundscape: (any SoundscapeSource)?
     private var sampleRate: Double = 44100
+    // Guards against rebuilding the graph on pause→resume (nodes stay attached after pause).
+    private var graphBuilt = false
 
     // MARK: Init
 
@@ -40,21 +42,34 @@ public final class AudioEngineController {
 
     // MARK: - Lifecycle
 
-    /// Build the AVAudioEngine graph and start audio rendering.
-    /// Must be called on the main thread. Throws if the engine fails to start.
+    /// Configure the AVAudioSession, build the graph (once), and start audio rendering.
+    /// Must be called on the main thread. Throws if the session or engine fails to start.
     public func start() throws {
-        buildGraph()
+        #if os(iOS)
+        let avSession = AVAudioSession.sharedInstance()
+        try avSession.setCategory(.playback, options: [])
+        try avSession.setActive(true, options: [])
+        #endif
+        if !graphBuilt {
+            buildGraph()
+            graphBuilt = true
+        }
         try engine.start()
         soundscape?.start()
     }
 
     public func pause() {
         engine.pause()
+        soundscape?.stop()
     }
 
     public func stop() {
         soundscape?.stop()
         engine.stop()
+        graphBuilt = false
+        #if os(iOS)
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+        #endif
     }
 
     public var isRunning: Bool { engine.isRunning }

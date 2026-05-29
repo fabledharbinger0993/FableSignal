@@ -74,6 +74,13 @@ public final class SessionRunner {
     private let resyncInterval = 150
     private var tickCount = 0
 
+    // MARK: Private — system observers (iOS only)
+
+    #if os(iOS)
+    private var interruptionObserver: NSObjectProtocol?
+    private var routeChangeObserver:  NSObjectProtocol?
+    #endif
+
     // MARK: Private — elapsed time tracking
 
     private var _runningStartTime: Date?
@@ -117,6 +124,9 @@ public final class SessionRunner {
 
         startUpdateLoop()
         setState(.running)
+        #if os(iOS)
+        registerObservers()
+        #endif
     }
 
     /// Suspend the session — torch off, audio paused, timer skips.
@@ -144,8 +154,11 @@ public final class SessionRunner {
     }
 
     /// Stop the session completely. Guaranteed to leave the torch off before returning.
-    /// Safe to call from any thread.
+    /// Safe to call from any thread, including from an AVAudioSession interruption handler.
     public func stop() {
+        #if os(iOS)
+        removeObservers()
+        #endif
         updateTimer?.cancel()
         updateTimer = nil
         strobeController.stop()
@@ -215,6 +228,67 @@ public final class SessionRunner {
             }
         }
     }
+
+    // MARK: - System observer registration (iOS only)
+
+    #if os(iOS)
+    private func registerObservers() {
+        let nc = NotificationCenter.default
+        let session = AVAudioSession.sharedInstance()
+
+        interruptionObserver = nc.addObserver(
+            forName: AVAudioSession.interruptionNotification,
+            object: session,
+            queue: .main
+        ) { [weak self] notification in
+            self?.handleInterruption(notification)
+        }
+
+        routeChangeObserver = nc.addObserver(
+            forName: AVAudioSession.routeChangeNotification,
+            object: session,
+            queue: .main
+        ) { [weak self] notification in
+            self?.handleRouteChange(notification)
+        }
+    }
+
+    private func removeObservers() {
+        if let obs = interruptionObserver {
+            NotificationCenter.default.removeObserver(obs)
+            interruptionObserver = nil
+        }
+        if let obs = routeChangeObserver {
+            NotificationCenter.default.removeObserver(obs)
+            routeChangeObserver = nil
+        }
+    }
+
+    /// Phone call, alarm, Siri, or any system interruption — stop immediately.
+    /// The user must manually restart; we do not auto-resume.
+    private func handleInterruption(_ notification: Notification) {
+        guard
+            let typeValue = notification.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue),
+            type == .began
+        else { return }
+        stop()
+    }
+
+    /// Headphones unplugged mid-session in Engine mode — stop immediately.
+    /// (BringYourOwn mode has no headphone requirement; route changes are ignored.)
+    private func handleRouteChange(_ notification: Notification) {
+        guard
+            audioMode == .engine,
+            let reasonValue = notification.userInfo?[AVAudioSessionRouteChangeReasonKey] as? UInt,
+            let reason = AVAudioSession.RouteChangeReason(rawValue: reasonValue),
+            reason == .oldDeviceUnavailable
+        else { return }
+        stop()
+    }
+    #endif
+
+    // MARK: - Active segment lookup
 
     /// Linear scan for active segment — O(n) on a small list, called at 30 Hz.
     private func activeSegment(at sessionTime: Double) -> (Int, Segment)? {

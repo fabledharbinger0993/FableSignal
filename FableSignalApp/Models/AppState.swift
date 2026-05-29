@@ -1,7 +1,20 @@
+import AVFoundation
 import Foundation
 import UIKit
 import SessionKit
 import SessionRunner
+
+// MARK: - Errors
+
+enum SessionStartError: LocalizedError {
+    case headphonesRequired
+
+    var errorDescription: String? {
+        "Connect headphones to use Binaural + Soundscape mode, or switch to Bring Your Own Music in Settings."
+    }
+}
+
+// MARK: - AppState
 
 final class AppState: ObservableObject {
 
@@ -44,8 +57,12 @@ final class AppState: ObservableObject {
 
     // MARK: - Session lifecycle
 
-    /// Start `session` using the current `audioMode`. Throws `StrobeError` or AVFoundation errors.
+    /// Start `session` using the current `audioMode`.
+    /// Throws `SessionStartError.headphonesRequired`, `StrobeError`, or AVFoundation errors.
     func startSession(_ session: Session) throws {
+        if audioMode == .engine && !isHeadphoneConnected() {
+            throw SessionStartError.headphonesRequired
+        }
         runner?.stop()
         runner = nil
         runnerState = .idle
@@ -84,5 +101,16 @@ final class AppState: ObservableObject {
         runner?.stop()
         runner = nil
         UIApplication.shared.isIdleTimerDisabled = false
+    }
+
+    // MARK: - Private
+
+    /// Returns true when at least one wired or wireless headphone output is active.
+    private func isHeadphoneConnected() -> Bool {
+        AVAudioSession.sharedInstance().currentRoute.outputs.contains {
+            $0.portType == .headphones
+                || $0.portType == .bluetoothA2DP
+                || $0.portType == .bluetoothHFP
+        }
     }
 }

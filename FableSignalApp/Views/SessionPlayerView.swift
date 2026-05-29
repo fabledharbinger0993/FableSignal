@@ -62,6 +62,9 @@ struct SessionPlayerView: View {
             }
         }
         .frame(width: 230, height: 230)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Session progress")
+        .accessibilityValue(accessibilityTimeValue)
     }
 
     private var modeBadge: some View {
@@ -82,6 +85,7 @@ struct SessionPlayerView: View {
             } label: {
                 controlIcon("stop.fill", size: 22, circleSize: 56, opacity: 0.12)
             }
+            .accessibilityLabel("Stop session")
 
             // Pause / Resume
             Button {
@@ -94,6 +98,7 @@ struct SessionPlayerView: View {
                 let icon = appState.runnerState == .running ? "pause.fill" : "play.fill"
                 controlIcon(icon, size: 28, circleSize: 72, opacity: 0.18)
             }
+            .accessibilityLabel(appState.runnerState == .running ? "Pause session" : "Resume session")
         }
     }
 
@@ -128,5 +133,12 @@ struct SessionPlayerView: View {
         let m = Int(t) / 60
         let s = Int(t) % 60
         return String(format: "%d:%02d", m, s)
+    }
+
+    private var accessibilityTimeValue: String {
+        let r = Int(remaining)
+        let m = r / 60
+        let s = r % 60
+        return s == 0 ? "\(m) minutes remaining" : "\(m) minutes \(s) seconds remaining"
     }
 }
